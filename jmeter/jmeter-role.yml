@@ -1,0 +1,7 @@
+- name: Run jmeter tests
+  hosts: all
+  
+  roles:
+    - role: Jmeter-Test
+      jmeter_command: -n  -t Test-plan.jmx -l test-result.jtl -JwebUrl=www.google.com -JinfluxUrl=http://localhost:9002/write?db=jmeter -Japplication=Jmeter-app-2 -Jduration=100
+

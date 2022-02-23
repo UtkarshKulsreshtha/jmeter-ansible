@@ -1,0 +1,13 @@
+---
+# vars file for Jmeter-Test
+jmeter:
+  testplans:
+    testplan_name: example
+    test_path: '{{playbook_dir}}/Test-plans/{{testplan_name}}.jmx'
+    duration: 5
+    threads: 1
+    log_path: '{{playbook_dir}}/Jmeter-logs/{{testplan_name}}.log'
+    jtl_path: '{{playbook_dir}}/Jmeter-jtl/{{testplan_name}}.jtl'
+    
+  testplans_dependency:
+

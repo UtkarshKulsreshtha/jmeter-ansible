@@ -1,0 +1,21 @@
+- name: Run jmeter container (command)
+  community.docker.docker_container:
+    name: "{{container_name}}"
+    image: "{{image}}"
+    state: started
+    detach: yes
+    tty: yes
+    interactive: yes
+    network_mode: host
+    mounts:
+      - source: "{{playbook_dir}}"
+        target: "{{playbook_dir}}"
+        type: bind
+    working_dir: "{{playbook_dir}}"
+    entrypoint: "{{entrypoint}}"
+    #command: "{{command}}"
+  register: result
+  
+- name: Show container details
+  debug:
+    msg: "{{result}}"

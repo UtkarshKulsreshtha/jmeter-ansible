@@ -1,0 +1,11 @@
+---
+# tasks file for Jmeter-Test
+# Setup jmeter docker container
+
+- name: Setup jmeter container
+  import_tasks: setup_jmeter.yml
+  tags: docker-jmeter
+
+- name: Run jmeter test on container
+  import_tasks: jmeter_exec.yml
+  tags: jmeter-test

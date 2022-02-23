@@ -1,0 +1,22 @@
+- name: set fact
+  set_fact:
+    test: "{{jmeter.testplans}}"
+
+- name: Jmeter command to be run.
+  debug:
+    msg: "jmeter -n -t {{test.test_path}} -l {{test.jtl_path}} -j {{test.log_path}} {{extra_jmeter_args}}"
+
+- name: Run jmeter test
+  community.docker.docker_container_exec:
+    container: "{{container_name}}"
+    #command: "{{command}}"
+    command: "jmeter -n -t {{test.test_path}} -l {{test.jtl_path}} -j {{test.log_path}} {{extra_jmeter_args}}"    
+
+  register: result
+
+- name: Show test results.
+  debug:
+    var: result.stdout
+
+
+

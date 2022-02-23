@@ -1,0 +1,8 @@
+- name: pull docker image
+  hosts: all
+  tasks:
+  - name: playbook vars
+    debug:
+      var: playbook_dir
+
+  

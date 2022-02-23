@@ -1,0 +1,36 @@
+- name: Start container with command
+  hosts: all
+  vars:
+    default_command: -n -t bin/examples/CSVSample.jmx -l ./bin/examples/Run1.jtl
+    container_name: jmeter-1
+    influxDbUrl: http://localhost:9002/write?db=jmeter
+  tasks:
+  - name: Run jmeter container (command)
+    community.docker.docker_container:
+      name: "{{container_name}}"
+      image: jmeter
+      state: started
+      detach: no
+      network_mode: host
+      #entrypoint: jmeter
+      #auto_remove: yes
+      mounts:
+        - source: /home/gslab/Documents/jmeter
+          target: /home/gslab/Documents/jmeter
+          type: bind
+      working_dir: /home/gslab/Documents/jmeter
+      command: -n -JinfluxUrl=http://localhost:8086/api/v2/write?org=gslab&amp;bucket=jmeter -t Test-1.jmx -l test-1-run.jtl
+
+    register: result
+  
+  # - name: Show test output
+  #   debug:
+  #     msg: "{{result.container.Output }}"
+
+  - name: Capture Jmeter latest logs
+    shell: tail jmeter.log
+    register: jmeter_logs
+  
+  - name: Show logs
+    debug:
+      msg: "{{jmeter_logs.stdout}}"

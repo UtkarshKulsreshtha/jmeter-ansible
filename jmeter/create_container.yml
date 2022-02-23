@@ -1,0 +1,15 @@
+- name: Create container
+  hosts: all
+  tasks:
+  - name: jmeter container
+    docker_container:
+      name: jmeter-2
+      image: jmeter
+      detach: no
+      state: started
+      entrypoint: /bin/sh
+      command: echo "Hello"
+    register: result
+  - name: Print stdout
+    debug:
+      var: result
