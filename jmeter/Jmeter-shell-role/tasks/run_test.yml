@@ -1,0 +1,9 @@
+- name: Run jmeter test with {{testplan}} testplan
+  shell: "docker exec  {{jmeter_container}} jmeter -n -t {{test_path}} -l {{test_jtl}} -j {{test_log}} {{extra_jmeter_args}}"
+  args:
+    chdir: "{{working_dir}}"
+  register: result
+
+- name: Show test results.
+  debug:
+    var: result.stdout

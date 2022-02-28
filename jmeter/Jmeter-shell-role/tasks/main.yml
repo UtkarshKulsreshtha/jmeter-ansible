@@ -1,0 +1,6 @@
+---
+# tasks file for Jmeter-shell-role
+
+- name: Run jmeter test on container
+  import_tasks: run_test.yml
+  tags: run_test
