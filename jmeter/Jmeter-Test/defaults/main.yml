@@ -1,16 +1,12 @@
 ---
 # defaults file for Jmeter-Test
 container_name: jmeter_test
-image: justb4/jmeter
-jmeter_host_dir: /home/gslab/Documents/jmeter
-jmeter_container_dir: /home/gslab/Documents/jmeter
-working_dir: /home/gslab/Documents/jmeter
 entrypoint: /bin/bash
-command: jmeter -n -t example.jmx -l example.jtl
+default_command: jmeter -n -t example.jmx -j example.log
+testplan: Test-plan
+working_dir: "{{playbook_dir}}"
+test_path: '{{working_dir}}/Test-plans/{{testplan}}.jmx'
+log_path: '{{working_dir}}/Test-logs/{{testplan}}.log'
+# duration: 5
+# threads: 1
 extra_jmeter_args: ""
-
-jmeter:
-  # define test plan variables
-  testplans:
-  # define test plan dependency
-  testplans_dependecy:
