@@ -1,0 +1,29 @@
+- name: Run jmeter container (command)
+  community.docker.docker_container:
+    name: "{{container_name}}"
+    image: "{{jmeter_image}}"
+    state: started
+    detach: no
+    network_mode: host
+    #entrypoint: jmeter
+    auto_remove: yes
+    mounts:
+      - source: "{{working_dir}}"
+        target: "{{working_dir}}"
+        type: bind
+    working_dir: "{{working_dir}}"
+    command: "-n -t {{test_path}} -j {{test_log}} {{extra_args}}"
+
+  register: result
+  
+# - name: Show test output
+#   debug:
+#     msg: "{{result.container.Output }}"
+
+- name: Capture Jmeter latest logs
+  shell: tail {{test_log}}
+  register: jmeter_logs
+  
+- name: Show logs
+  debug:
+    msg: "{{jmeter_logs.stdout}}"

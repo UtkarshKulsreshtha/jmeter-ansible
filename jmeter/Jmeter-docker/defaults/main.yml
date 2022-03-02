@@ -1,0 +1,9 @@
+---
+# defaults file for Jmeter-shell-role
+jmeter_image: justb4/jmeter
+container_name: jmeter_test
+testplan: Test-plan
+test_path: "Test-plans/{{testplan}}.jmx"
+test_log: "Test-logs/{{container_name}}-{{testplan}}.log"
+extra_args: ""
+working_dir: "{{playbook_dir}}"
